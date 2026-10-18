@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Embed Bioinformatics LLC</title>
+<meta name="description" content="Embed Bioinformatics LLC — computational biology and bioinformatics consulting: sequencing analysis, pipelines, and machine learning for life-science teams.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23172033'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='18' font-weight='700' text-anchor='middle' fill='%237FD1C7'%3EE%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     EDIT HERE: colors. Residue colors echo classic alignment
+     viewers (hydrophobic blue, acidic magenta, polar green...).
+     ============================================================ */
+  :root {
+    --paper: #F6F8F7;
+    --ink: #172033;
+    --ink-soft: #4A5568;
+    --rule: #D9DFDD;
+    --motif: #0F766E;          /* the highlighted EMBED column */
+    --motif-wash: #CFEDE9;
+    --r-hydro: #3B6FB6;
+    --r-acid: #B0447E;
+    --r-polar: #3E8E5A;
+    --r-basic: #C2552B;
+    --r-other: #8A94A6;
+    --max: 1120px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #12192A; --ink: #E8EDEC; --ink-soft: #A7B1C2; --rule: #2A3448;
+      --motif: #7FD1C7; --motif-wash: #173E45;
+      --r-hydro: #7FA6E0; --r-acid: #E08AB9; --r-polar: #84C79A; --r-basic: #EE9A72; --r-other: #66728A;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #12192A; --ink: #E8EDEC; --ink-soft: #A7B1C2; --rule: #2A3448;
+    --motif: #7FD1C7; --motif-wash: #173E45;
+    --r-hydro: #7FA6E0; --r-acid: #E08AB9; --r-polar: #84C79A; --r-basic: #EE9A72; --r-other: #66728A;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 400 1.0625rem/1.6 "Schibsted Grotesk", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--motif); outline-offset: 3px; border-radius: 2px; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+  /* Header */
+  header.top { border-bottom: 1px solid var(--rule); }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; }
+  .brand-mark {
+    font: 600 0.95rem/1 "IBM Plex Mono", monospace; color: var(--paper); background: var(--ink);
+    padding: 6px 7px; border-radius: 5px;
+  }
+  nav ul { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; }
+  nav a { text-decoration: none; color: var(--ink-soft); font-weight: 500; font-size: 0.97rem; }
+  nav a:hover { color: var(--ink); }
+  @media (max-width: 640px) { nav ul { gap: 16px; } nav li.hide-sm { display: none; } }
+
+  /* Hero */
+  .hero { padding: 72px 0 64px; }
+  .hero h1 {
+    font-weight: 700; font-size: clamp(2.3rem, 5.4vw, 4.1rem); line-height: 1.04;
+    letter-spacing: -0.03em; margin: 0 0 22px; max-width: 15ch;
+  }
+  .hero p.lede { font-size: 1.2rem; color: var(--ink-soft); max-width: 54ch; margin: 0 0 32px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 14px; }
+  .btn {
+    display: inline-block; padding: 13px 22px; border-radius: 6px; font-weight: 600; text-decoration: none;
+    border: 1.5px solid var(--ink);
+  }
+  .btn.primary { background: var(--ink); color: var(--paper); }
+  .btn.primary:hover { background: var(--motif); border-color: var(--motif); }
+  .btn.ghost:hover { background: var(--ink); color: var(--paper); }
+
+  /* The alignment: the one memorable thing on the page */
+  .msa {
+    margin-top: 56px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    padding: 22px 0 18px; overflow: hidden;
+  }
+  .msa-grid {
+    font: 400 clamp(0.72rem, 1.55vw, 1rem)/1.75 "IBM Plex Mono", monospace;
+    white-space: pre; user-select: none;
+  }
+  .msa-row { display: flex; }
+  .msa-id { color: var(--ink-soft); width: 9.5ch; flex: none; }
+  .msa-seq span { display: inline-block; width: 1ch; text-align: center; }
+  .h { color: var(--r-hydro); } .a { color: var(--r-acid); } .p { color: var(--r-polar); }
+  .b { color: var(--r-basic); } .o { color: var(--r-other); }
+  .msa-seq span.m { color: var(--motif); font-weight: 600; background: var(--motif-wash); }
+  .msa-seq span.m.top { border-radius: 3px 3px 0 0; }
+  .msa-seq span.m.bot { border-radius: 0 0 3px 3px; }
+  .msa-cons { color: var(--motif); }
+  .msa-caption { margin-top: 12px; font-size: 0.9rem; color: var(--ink-soft); }
+  @media (prefers-reduced-motion: no-preference) {
+    .msa-seq span.m { animation: lift 900ms cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(var(--d) * 70ms + 300ms); }
+    @keyframes lift { from { background: transparent; color: var(--r-other); } }
+  }
+
+  /* Sections */
+  section.block { padding: 88px 0; border-top: 1px solid var(--rule); }
+  .block-head { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 44px; max-width: 62ch; }
+  .block-head h2 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); line-height: 1.12; letter-spacing: -0.02em; margin: 0; }
+  .block-head p { margin: 0; color: var(--ink-soft); font-size: 1.1rem; }
+
+  /* Services: a two-column list, not a card grid */
+  .services { display: grid; grid-template-columns: repeat(2, 1fr); column-gap: 64px; margin: 0; }
+  .service { padding: 26px 0; border-top: 1px solid var(--rule); }
+  .service dt { font-weight: 600; font-size: 1.2rem; margin-bottom: 6px; letter-spacing: -0.01em; }
+  .service dd { margin: 0; color: var(--ink-soft); max-width: 46ch; }
+  .service .tools { margin-top: 10px; font-size: 0.92rem; color: var(--ink); opacity: .75; }
+  @media (max-width: 760px) { .services { grid-template-columns: 1fr; } }
+
+  /* Process: a real sequence, so numbering is earned */
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; counter-reset: step; }
+  .steps li { counter-increment: step; position: relative; padding-top: 22px; border-top: 3px solid var(--ink); }
+  .steps li::before {
+    content: counter(step); position: absolute; top: -15px; left: 0; width: 28px; height: 28px; border-radius: 50%;
+    background: var(--paper); border: 3px solid var(--ink); font: 600 0.8rem/22px "IBM Plex Mono", monospace; text-align: center;
+  }
+  .steps h3 { margin: 6px 0 6px; font-size: 1.1rem; }
+  .steps p { margin: 0; color: var(--ink-soft); font-size: 0.98rem; }
+  @media (max-width: 860px) { .steps { grid-template-columns: 1fr 1fr; row-gap: 48px; } }
+  @media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: start; }
+  .about p { margin: 0 0 18px; max-width: 60ch; }
+  .facts { margin: 0; border-left: 3px solid var(--motif); padding-left: 24px; }
+  .facts div { padding: 10px 0; }
+  .facts dt { font-size: 0.9rem; color: var(--ink-soft); }
+  .facts dd { margin: 0; font-weight: 600; }
+  @media (max-width: 760px) { .about { grid-template-columns: 1fr; gap: 40px; } }
+
+  /* Contact */
+  .contact { background: var(--ink); color: var(--paper); border-top: none; }
+  .contact .block-head p { color: color-mix(in srgb, var(--paper) 75%, transparent); }
+  .contact-line { font-size: clamp(1.4rem, 3.6vw, 2.4rem); font-weight: 600; letter-spacing: -0.02em; word-break: break-word; }
+  .contact-line a { text-decoration-thickness: 2px; text-underline-offset: 6px; }
+  .contact-line a:hover { color: var(--motif-wash); }
+  .contact-meta { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 28px; color: color-mix(in srgb, var(--paper) 75%, transparent); }
+  .contact a:focus-visible { outline-color: var(--motif-wash); }
+
+  footer { padding: 28px 0 40px; color: var(--ink-soft); font-size: 0.9rem; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><span class="brand-mark">E</span>Embed Bioinformatics</a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li class="hide-sm"><a href="#process">Process</a></li>
+        <li class="hide-sm"><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Bioinformatics that fits inside your research team.</h1>
+      <p class="lede">Embed Bioinformatics LLC partners with labs, biotechs, and clinical groups to turn sequencing and omics data into results you can publish, file, and build on.</p>
+      <div class="actions">
+        <a class="btn primary" href="#contact">Start a project</a>
+        <a class="btn ghost" href="#services">See services</a>
+      </div>
+
+      <div class="msa" aria-hidden="true">
+        <div class="msa-grid" id="msa"></div>
+      </div>
+      <p class="msa-caption">A conserved motif stands out once the sequences are aligned. That's the job: find the signal that matters in your data.</p>
+    </div>
+  </section>
+
+  <section class="block" id="services">
+    <div class="wrap">
+      <div class="block-head">
+        <h2>Services</h2>
+        <p>Project-based analysis or ongoing support as an extension of your team.</p>
+      </div>
+      <dl class="services">
+        <div class="service">
+          <dt>Sequencing analysis</dt>
+          <dd>Bulk and single-cell RNA-seq, whole-genome and exome variant calling, ChIP/ATAC-seq, and metagenomics, from raw reads to interpreted results.</dd>
+          <div class="tools">STAR, Salmon, GATK, Seurat, Scanpy</div>
+        </div>
+        <div class="service">
+          <dt>Pipeline development</dt>
+          <dd>Reproducible, documented workflows that run on your cluster or cloud and that your team can maintain after handoff.</dd>
+          <div class="tools">Nextflow, Snakemake, Docker, AWS, Slurm</div>
+        </div>
+        <div class="service">
+          <dt>Machine learning and embeddings</dt>
+          <dd>Protein and sequence language models, representation learning, and predictive models built around your biological question.</dd>
+          <div class="tools">PyTorch, ESM, scikit-learn</div>
+        </div>
+        <div class="service">
+          <dt>Statistical consulting</dt>
+          <dd>Study design, power analysis, differential expression, and review of analyses before submission.</dd>
+          <div class="tools">R, Bioconductor, DESeq2, limma</div>
+        </div>
+        <div class="service">
+          <dt>Data visualization and reporting</dt>
+          <dd>Figures ready for publication, interactive reports, and clear write-ups for collaborators who don't code.</dd>
+          <div class="tools">ggplot2, Quarto, Shiny</div>
+        </div>
+        <div class="service">
+          <dt>Grant and manuscript support</dt>
+          <dd>Analysis plans for proposals, methods sections, and responses to reviewer comments on computational work.</dd>
+          <div class="tools">NIH, NSF, SBIR proposals</div>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="block" id="process">
+    <div class="wrap">
+      <div class="block-head">
+        <h2>How a project runs</h2>
+        <p>Clear scope up front, regular check-ins, and deliverables you own.</p>
+      </div>
+      <ol class="steps">
+        <li><h3>Scope</h3><p>A free call to understand your question, data, and timeline. You get a written proposal with a fixed quote.</p></li>
+        <li><h3>Analyze</h3><p>Work happens in version-controlled code with progress updates at agreed milestones.</p></li>
+        <li><h3>Review</h3><p>We walk through results together and refine the analysis based on what you learn.</p></li>
+        <li><h3>Hand off</h3><p>You receive results, figures, code, and documentation, ready to reuse or extend.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="about">
+    <div class="wrap about">
+      <div>
+        <div class="block-head" style="margin-bottom:28px">
+          <h2>About</h2>
+        </div>
+        <!-- EDIT HERE: your bio -->
+        <p>Embed Bioinformatics LLC was founded by [Your Name], a computational biologist with [X] years of experience analyzing genomic and transcriptomic data in academic and industry settings.</p>
+        <p>The name reflects how we work: embedded alongside your scientists, understanding the biology as well as the code, so the analysis answers the question you actually asked.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>Founder</dt><dd>[Your Name], PhD</dd></div>
+        <div><dt>Based in</dt><dd>[City, State] · working remotely with clients anywhere</dd></div>
+        <div><dt>Background</dt><dd>[Your degree / prior institution]</dd></div>
+        <div><dt>Profiles</dt><dd><a href="https://github.com/YOUR-USERNAME">GitHub</a> &nbsp; <a href="https://www.linkedin.com/in/YOUR-PROFILE">LinkedIn</a> &nbsp; <a href="https://scholar.google.com/">Google Scholar</a></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="block contact" id="contact">
+    <div class="wrap">
+      <div class="block-head">
+        <h2>Tell us about your data</h2>
+        <p>Send a short note about your project and we'll set up a call, usually within two business days.</p>
+      </div>
+      <!-- EDIT HERE: your email -->
+      <div class="contact-line"><a href="mailto:hello@embedbioinformatics.com">hello@embedbioinformatics.com</a></div>
+      <div class="contact-meta">
+        <span>Embed Bioinformatics LLC</span>
+        <span>[City, State]</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; <span id="yr">2026</span> Embed Bioinformatics LLC</span>
+    <a href="#">Back to top</a>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Builds a small multiple-sequence alignment with the conserved
+  // motif E-M-B-E-D (single-letter amino-acid codes) in one block.
+  (function () {
+    var el = document.getElementById('msa');
+    if (!el) return;
+    var cls = { A:'h',V:'h',L:'h',I:'h',M:'h',F:'h',W:'h',C:'h',
+                D:'a',E:'a', S:'p',T:'p',N:'p',Q:'p',Y:'p',
+                K:'b',R:'b',H:'b', G:'o',P:'o',B:'a' };
+    var aa = 'ACDEFGHIKLMNPQRSTVWY';
+    var seed = 20261018;
+    function rnd() { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }
+    var ids = ['sp|Q9X1','tr|A0A2','sp|P53_','tr|B4F8','sp|O75N','tr|K7Q2'];
+    var len = 46, at = 19, motif = 'EMBED';
+    var cols = Math.min(len, Math.floor((el.clientWidth || 600) / 9.6) - 10);
+    if (cols < 24) cols = 24;
+    var start = Math.max(0, at - Math.floor((cols - motif.length) / 2));
+    var html = '';
+    ids.forEach(function (id, r) {
+      var s = '';
+      for (var i = 0; i < len; i++) {
+        var ch = aa[Math.floor(rnd() * aa.length)];
+        if (rnd() < 0.06) ch = '-';
+        if (i >= at && i < at + motif.length) {
+          ch = motif[i - at];
+          var extra = r === 0 ? ' top' : (r === ids.length - 1 ? ' bot' : '');
+          if (i >= start && i < start + cols)
+            s += '<span class="m' + extra + '" style="--d:' + (i - at) + '">' + ch + '</span>';
+          continue;
+        }
+        if (i >= start && i < start + cols)
+          s += '<span class="' + (cls[ch] || 'o') + '">' + ch + '</span>';
+      }
+      html += '<div class="msa-row"><span class="msa-id">' + id + '</span><span class="msa-seq">' + s + '</span></div>';
+    });
+    var cons = '';
+    for (var j = start; j < start + cols; j++) cons += '<span>' + (j >= at && j < at + motif.length ? '*' : ' ') + '</span>';
+    html += '<div class="msa-row"><span class="msa-id"></span><span class="msa-seq msa-cons">' + cons + '</span></div>';
+    el.innerHTML = html;
+  })();
+</script>
+</body>
+</html>
