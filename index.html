@@ -121,6 +121,34 @@
   .service .tools { margin-top: 10px; font-size: 0.92rem; color: var(--ink); opacity: .75; }
   @media (max-width: 760px) { .services { grid-template-columns: 1fr; } }
 
+  /* Projects: case-study entries */
+  .project { padding: 28px 0; border-top: 1px solid var(--rule); max-width: 70ch; }
+  .project-cat { margin: 0 0 6px; font: 600 0.8rem "IBM Plex Mono", monospace; text-transform: uppercase; letter-spacing: .06em; color: var(--motif); }
+  .project h3 { margin: 0 0 6px; font-size: 1.35rem; letter-spacing: -0.01em; }
+  .project-client { margin: 0 0 14px; color: var(--ink-soft); }
+  .project-summary { margin: 0 0 18px; }
+  .project h4 { margin: 0 0 8px; font-size: 0.95rem; }
+  .project ul { margin: 0 0 18px; padding-left: 1.2em; color: var(--ink-soft); }
+  .project ul li { margin-bottom: 6px; }
+  .project-cta { font-weight: 600; }
+
+  /* Publications and abstracts */
+  .pubs { list-style: none; margin: 0; padding: 0; max-width: 70ch; }
+  .pubs li { padding: 22px 0; border-top: 1px solid var(--rule); }
+  .pub-title { margin: 0 0 6px; font-weight: 600; font-size: 1.1rem; letter-spacing: -0.01em; }
+  .pub-authors { margin: 0 0 4px; font-size: 0.95rem; }
+  .pub-authors strong { font-weight: 600; }
+  .pub-venue { margin: 0; color: var(--ink-soft); }
+  .pub-venue a { font-family: "IBM Plex Mono", monospace; font-size: 0.9rem; }
+
+  /* Client reviews */
+  .reviews { display: grid; grid-template-columns: repeat(2, 1fr); gap: 48px; }
+  .review { margin: 0; padding-left: 24px; border-left: 3px solid var(--motif); }
+  .review blockquote { margin: 0 0 16px; font-size: 1.05rem; line-height: 1.55; }
+  .review figcaption { color: var(--ink-soft); font-size: 0.95rem; }
+  .review figcaption strong { display: block; color: var(--ink); font-weight: 600; }
+  @media (max-width: 760px) { .reviews { grid-template-columns: 1fr; } }
+
   /* Process: a real sequence, so numbering is earned */
   .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; counter-reset: step; }
   .steps li { counter-increment: step; position: relative; padding-top: 22px; border-top: 3px solid var(--ink); }
@@ -163,6 +191,9 @@
     <nav aria-label="Main">
       <ul>
         <li><a href="#services">Services</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li class="hide-sm"><a href="#reviews">Reviews</a></li>
+        <li class="hide-sm"><a href="#publications">Publications</a></li>
         <li class="hide-sm"><a href="#process">Process</a></li>
         <li class="hide-sm"><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -230,6 +261,104 @@
     </div>
   </section>
 
+  <section class="block" id="projects">
+    <div class="wrap">
+      <div class="block-head">
+        <h2>Projects</h2>
+        <p>Selected work with clients: what they needed, what I built, and where it landed.</p>
+      </div>
+      <article class="project">
+        <p class="project-cat">Clinical genomics</p>
+        <h3>Multi-omic HiFi WGS analysis and PRS validation</h3>
+        <p class="project-client">Client: <a href="https://xella.bio">Xella Bio</a></p>
+        <p class="project-summary">Xella Bio needed production-grade analysis of long-read whole-genome data and a validated polygenic risk score test ready for clinical use.</p>
+        <h4>What I delivered</h4>
+        <ul>
+          <li>Implemented a multi-omic secondary analysis pipeline for PacBio HiFi whole-genome sequencing data.</li>
+          <li>Led the analytical validation of a polygenic risk score laboratory-developed test (LDT).</li>
+        </ul>
+        <a class="project-cta" href="#contact">Discuss your project →</a>
+      </article>
+      <article class="project">
+        <p class="project-cat">Population genomics</p>
+        <h3>Breed ancestry pipeline and canine panel design</h3>
+        <p class="project-client">Client: <a href="https://darwinsark.org">Darwin's Ark</a></p>
+        <p class="project-summary">Darwin's Ark needed a maintainable breed ancestry pipeline for low-pass dog and cat genomes and better coverage from its custom canine sequencing panel.</p>
+        <h4>What I delivered</h4>
+        <ul>
+          <li>Refactored a shell-script pipeline into a modular Nextflow pipeline for breed ancestry from low-pass WGS of dog and cat genomes.</li>
+          <li>Identified low-coverage regions to directly improve custom probe design for a canine genomics panel.</li>
+        </ul>
+        <a class="project-cta" href="#contact">Discuss your project →</a>
+      </article>
+      <article class="project">
+        <p class="project-cat">Rare disease</p>
+        <h3>De novo trio assembly to confirm a pathogenic variant</h3>
+        <p class="project-client">Client: Gaudi Bio</p>
+        <p class="project-summary">Gaudi Bio needed to confirm the pathogenic variant in a rare disease patient before designing a custom therapy.</p>
+        <h4>What I delivered</h4>
+        <ul>
+          <li>Performed de novo assembly of PacBio HiFi whole-genome data from a rare disease proband and both parents to confirm the pathogenic variant.</li>
+          <li>Delivered results that informed the downstream design of a custom therapy.</li>
+        </ul>
+        <a class="project-cta" href="#contact">Discuss your project →</a>
+      </article>
+      <article class="project">
+        <p class="project-cat">AI tools for non-profits</p>
+        <h3>An AI assistant for PTA reimbursements</h3>
+        <p class="project-client">Client: Hage Elementary PTA</p>
+        <p class="project-summary">The volunteer treasurer needed a faster way to check reimbursement paperwork and streamline the PTA's financial operations.</p>
+        <h4>What I delivered</h4>
+        <ul>
+          <li>Designed an agentic AI tool that reads scanned reimbursement forms and receipts and extracts the key details.</li>
+          <li>Built in arithmetic checks, with no AI involved, that confirm the receipts support the amount claimed and flag mismatches for the treasurer.</li>
+        </ul>
+        
+        <a class="project-cta" href="#contact">Discuss your project →</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="reviews">
+    <div class="wrap">
+      <div class="block-head">
+        <h2>Client Reviews</h2>
+        <p>What people I've worked with say about the work.</p>
+      </div>
+      <div class="reviews">
+        <figure class="review">
+          <blockquote>“Amit has been instrumental in building reproducible and scalable pipelines for data coming out of Darwin's Ark. He took on the challenging task of refactoring our bioinformatics pipelines into reproducible Nextflow workflows, significantly improving the reliability and scalability of our data processing, including alignment, imputation, and computing ancestry results for dog and cat genomes.”</blockquote>
+          <figcaption><strong>Kasia Bryc</strong>Head of Research, Darwin's Ark</figcaption>
+        </figure>
+        <figure class="review">
+          <blockquote>“Amit and I worked together at Xella Bio, where Amit served as the lead bioinformatics scientist and pipeline engineer. His work was a key pillar for the organization, as he set up and maintained the company's essential pipelines for multiomics R&amp;D using long-read sequencing.”</blockquote>
+          <figcaption><strong>Olga Sazonova</strong>Former VP of Computational Biology, Xella Bio</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="publications">
+    <div class="wrap">
+      <div class="block-head">
+        <h2>Publications and Abstracts</h2>
+        <p>Papers and conference abstracts from consulting work.</p>
+      </div>
+      <ul class="pubs">
+        <li>
+          <p class="pub-title">The Xella Clock: a female-specific epigenetic aging clock optimized for menstrual fluid and endometrial tissue</p>
+          <p class="pub-authors">A. Pavuluri, B. Gould, <strong>A. Indap</strong>, N. Salakh, K. Lacob, A. Dantas, O. Sazonova, J. Ching</p>
+          <p class="pub-venue">2026 · <a href="https://doi.org/10.64898/2026.08.07.26359971">doi:10.64898/2026.08.07.26359971</a></p>
+        </li>
+        <li>
+          <p class="pub-title">Low pass whole genome sequencing plus targeted capture: a platform for high accuracy genotyping, trait discovery, and genomic evaluation in working dogs</p>
+          <p class="pub-authors">F.L. Chen, B. Kenney, <strong>A.R. Indap</strong>, V. Sohrab, K. Bryc, K. Mequier, J. Russenberger, M. Zimmermann, E. Leighton, B. Fragomeni, E. Karlsson</p>
+          <p class="pub-venue">The World Congress of Genetics Applied to Livestock Production, 2026 · <a href="https://www.iastatedigitalpress.com/wcgalp/article/id/24221/">Proceedings paper</a></p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
   <section class="block" id="process">
     <div class="wrap">
       <div class="block-head">
@@ -258,7 +387,7 @@
       <dl class="facts">
         <div><dt>Founder</dt><dd>Amit Indap, PhD</dd></div>
         <div><dt>Based in</dt><dd>San Diego, CA USA · working remotely with clients anywhere</dd></div>
-        <div><dt>Background</dt><dd>PhD in Bioinformatics</dd></div>
+        <div><dt>Background</dt><dd>PhD in Bioinformatics<br>Published in Nature, Science, and PNAS<br>Research contributions to the 1000 Genomes Project and the Pfizer COVID-19 vaccine<br>Industry experience at Pfizer and Illumina</dd></div>
         <div><dt>Profiles</dt><dd><a href="https://scholar.google.com/citations?user=s1sSGZUAAAAJ&hl=en">Google Scholar</a> · <a href="https://www.linkedin.com/in/aindap/">LinkedIn</a></dd></div>
       </dl>
     </div>
