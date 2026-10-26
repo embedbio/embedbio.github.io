@@ -1,0 +1,21 @@
+---
+layout: default
+title: Blog
+---
+<div class="block-head">
+  <h2>Blog</h2>
+  <p>Notes from client work, side projects, and the tools I use along the way.</p>
+</div>
+{% if site.posts.size > 0 %}
+<ul class="post-list">
+  {% for post in site.posts %}
+  <li>
+    <span class="post-date">{{ post.date | date: "%B %-d, %Y" }}</span>
+    <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+    <div class="excerpt">{{ post.excerpt }}</div>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No posts yet.</p>
+{% endif %}

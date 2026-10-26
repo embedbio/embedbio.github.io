@@ -1,0 +1,12 @@
+title: Embed Bioinformatics
+description: Bioinformatics consulting — notes from client and personal projects.
+author: Amit Indap
+url: https://embedbio.github.io
+permalink: /blog/:year/:month/:day/:title/
+markdown: kramdown
+kramdown:
+  input: GFM
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock

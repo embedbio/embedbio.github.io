@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if page.title %}{{ page.title }} · {% endif %}Embed Bioinformatics LLC</title>
+<meta name="description" content="{{ page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 }}">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23172033'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='18' font-weight='700' text-anchor='middle' fill='%237FD1C7'%3EE%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+
+<!-- Header is duplicated in index.html; keep nav links in sync. -->
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="brand-mark">E</span>Embed Bioinformatics</a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#projects">Projects</a></li>
+        <li class="hide-sm"><a href="/#reviews">Reviews</a></li>
+        <li class="hide-sm"><a href="/#publications">Publications</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li class="hide-sm"><a href="/#process">Process</a></li>
+        <li class="hide-sm"><a href="/#about">About</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="block">
+    <div class="wrap">
+{{ content }}
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; {{ site.time | date: "%Y" }} Embed Bioinformatics LLC</span>
+    <a href="#">Back to top</a>
+  </div>
+</footer>
+
+</body>
+</html>
