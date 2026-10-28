@@ -9,7 +9,7 @@ tags:
   - automation
 ---
 
-[Sasha Dagayev ](https://www.linkedin.com/in/sasha-dagayev/) recently posted [this demo](https://lnkd.in/p/gGgX76Jh) on a new Seqera platform feature to launch pipeines automatically. 
+[Sasha Dagayev ](https://www.linkedin.com/in/sasha-dagayev/) recently posted [this demo](https://lnkd.in/p/gGgX76Jh) on a new Seqera platform feature to launch pipelines automatically. 
 
 The new feature, Seqera Pipeline Actions, makes it easy to launch pipelines on Seqera Platform automatically. I've become a big fan of Seqera Platform over the past two years, and what I like most is its UI for launching and tracking pipelines. That's high praise from someone who used to monitor pipeline progress in the AWS Batch console 😆
 
