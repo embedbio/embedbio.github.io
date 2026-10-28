@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Seqera Pipeline Actions to automatically launch pipeiines"
+title: "Seqera Actions to automatically launch pipelines"
 date: 2026-10-27
 author: "Amit Indap"
 tags:
