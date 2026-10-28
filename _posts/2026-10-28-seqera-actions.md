@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Seqera Actions to automatically launch pipeiines"
+title: "Seqera Pipeline Actions to automatically launch pipeiines"
 date: 2026-10-27
 author: "Amit Indap"
 tags:
@@ -11,7 +11,7 @@ tags:
 
 [Sasha Dagayev ](https://www.linkedin.com/in/sasha-dagayev/) recently posted [this demo](https://lnkd.in/p/gGgX76Jh) on a new Seqera platform feature to launch pipeines automatically. 
 
-The  new feature called Seqera Actions make it easy to automate launch jobs on Seqera Platform. Over the past two years, I've become a big fan of Seqera Platform. The thing I like the most is the UI to track and launch pipelines. This is coming from a person who used to track pipeline progress on AWS Batch console :laughing: 
+The new feature, Seqera Pipeline Actions, makes it easy to launch pipelines on Seqera Platform automatically. I've become a big fan of Seqera Platform over the past two years, and what I like most is its UI for launching and tracking pipelines. That's high praise from someone who used to monitor pipeline progress in the AWS Batch console 😆
 
 I set up an action to launch my [HiFi WGS trio pipeline](https://github.com/embedbio/nextflow-hifi-wgs)
 
