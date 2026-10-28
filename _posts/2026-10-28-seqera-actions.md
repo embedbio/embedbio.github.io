@@ -15,7 +15,7 @@ The  new feature called Seqera Actions make it easy to automate launch jobs on S
 
 I set up an action to launch my [HiFi WGS trio pipeline](https://github.com/embedbio/nextflow-hifi-wgs)
 
-Step one:
+
 
 1. Navigate to **Actions** on [Seqera platform](https://cloud.seqera.io/)
 
