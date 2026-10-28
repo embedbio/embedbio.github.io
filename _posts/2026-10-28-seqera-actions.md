@@ -9,54 +9,53 @@ tags:
   - automation
 ---
 
-[Sasha Dagayev ](https://www.linkedin.com/in/sasha-dagayev/) recently posted [this demo](https://lnkd.in/p/gGgX76Jh) on a new Seqera platform feature to launch pipelines automatically. 
+[Sasha Dagayev](https://www.linkedin.com/in/sasha-dagayev/) recently posted [a demo](https://lnkd.in/p/gGgX76Jh) of a new Seqera Platform feature that launches pipelines automatically.
 
 The new feature, Seqera Pipeline Actions, makes it easy to launch pipelines on Seqera Platform automatically. I've become a big fan of Seqera Platform over the past two years, and what I like most is its UI for launching and tracking pipelines. That's high praise from someone who used to monitor pipeline progress in the AWS Batch console 😆
 
-I set up an action to launch my [HiFi WGS trio pipeline](https://github.com/embedbio/nextflow-hifi-wgs)
+I set up an action to launch my [HiFi WGS trio pipeline](https://github.com/embedbio/nextflow-hifi-wgs). Here's how.
 
+First, go to **Actions** in [Seqera Platform](https://cloud.seqera.io/).
 
+![The Actions menu in Seqera Platform](/assets/img/seqera_actions_menu.png)
 
- Navigate to **Actions** on [Seqera platform](https://cloud.seqera.io/)
+Click **Add Action**, then fill in a name and tag. You can choose from several triggers, which are described in detail in the [Seqera documentation](https://docs.seqera.io/platform-cloud/pipeline-actions/overview).
 
- ![ Actions menu in Seqera Platform](/assets/img/seqera_actions_menu.png)
+I chose **Bucket event**. Make sure the bucket has the right IAM permissions, as described in the [bucket events documentation](https://docs.seqera.io/platform-cloud/pipeline-actions/overview#bucket-events).
 
-Click  Add Action and the fill in the information for the name and tag. There are various Triggers you can choose from, described in detail [here](https://docs.seqera.io/platform-cloud/pipeline-actions/overview)
+![The new action form in Seqera Platform](/assets/img/newaction.png)
 
-For my purposes I chose bucket event. Make sure the bucket has appropriate IAM permissions, as described [here](https://docs.seqera.io/platform-cloud/pipeline-actions/overview#bucket-events)
+For a bucket event, choose the bucket you want to watch and the event that fires the trigger (object created or object deleted).
 
-![newaction.png](/assets/img/newaction.png)
+Next, choose the marker file that signals your data is ready. This part confused me a little: I set the marker file to the name of the samplesheet my pipeline expects.
 
-For bucket event, choose the bucket you want to watch. Choose your trigger ( object created, object deleted)
+![Configuring the bucket event trigger](/assets/img/trigger.png)
 
-Choose your marker file that signals your data is ready. I'm a little confused on this, becasue I set my marker file the name of the samplesheet that my pipeline expects. 
+Then point the action at its target. In my case, that's my [pipeline repo on GitHub](https://github.com/embedbio/nextflow-hifi-wgs).
 
-![trigger.png](/assets/img/trigger.png)
+![Setting the action's target pipeline](/assets/img/action-target.png)
 
- Next, you point your action towards your Target. For my case, I pointed it to my [pipeline repo on github](https://github.com/embedbio/nextflow-hifi-wgs)
+Finally, test the action. I uploaded my samplesheet to the bucket, and it launched my pipeline.
 
-![action-target.png](/assets/img/action-target.png)
+![The pipeline run launched by the action](/assets/img/pipeline-launch.png)
 
-Finally, you can test your action. I uploaded my samplesheet to the bucket and it triggered my pipeline
+You might be wondering: why not do the same thing with AWS Lambda? I asked Seqera Co-Scientist:
 
-![pipeline-launch.png](/assets/img/pipeline-launch.png)
+> Can't a Seqera action on a bucket event also be implemented on another platform, like AWS Lambda? Is the advantage that it's launched from the Platform UI?
 
-You might ask yourself, why can't I implement the same thing via AWS Lambda.  I gave this prompt to Seqera Co-Scientist:
+Here's its answer:
 
->Can't a Seqera action on a bucket event also be implmemeted on a onther platform like AWS lambda? Is the advantage  being its launched via platform UI?
-
-It answered the following:
-
->Yes. Under the hood, a Seqera bucket event action is the same pattern as S3 → Lambda. When you create the action, Seqera sets up an S3 bucket notification and an SNS topic in your AWS account, and S3 sends events through SNS to Platform. A Lambda can do the same job by calling the Platform API, using the launch hook from earlier or the standard launch endpoint. The run still shows up in Platform either way.
-
->The UI is part of the advantage, but the bigger part is that Seqera handles the plumbing and the safeguards for you.
-
->Rule of thumb:
-
->If one fixed input path fits your workflow, as in your current setup, the Seqera action is simpler and gives you more visibility.
-
->If each event needs its own parameters, such as multiple trio samplesheets in parallel, separate outdirs per batch, or custom filtering, you need Lambda (or an agent target). The Seqera action can't pass event details to the run.
-You can also combine them. Let Lambda handle only the "which file arrived" logic and call a Seqera launch hook. The pipeline, compute environment and defaults stay managed in Platform, and Lambda only supplies the per-batch parameters.
+> Yes. Under the hood, a Seqera bucket event action is the same pattern as S3 → Lambda. When you create the action, Seqera sets up an S3 bucket notification and an SNS topic in your AWS account, and S3 sends events through SNS to Platform. A Lambda can do the same job by calling the Platform API, using the launch hook from earlier or the standard launch endpoint. The run still shows up in Platform either way.
+>
+> The UI is part of the advantage, but the bigger part is that Seqera handles the plumbing and the safeguards for you.
+>
+> Rule of thumb:
+>
+> If one fixed input path fits your workflow, as in your current setup, the Seqera action is simpler and gives you more visibility.
+>
+> If each event needs its own parameters, such as multiple trio samplesheets in parallel, separate outdirs per batch, or custom filtering, you need Lambda (or an agent target). The Seqera action can't pass event details to the run.
+>
+> You can also combine them. Let Lambda handle only the "which file arrived" logic and call a Seqera launch hook. The pipeline, compute environment and defaults stay managed in Platform, and Lambda only supplies the per-batch parameters.
 
 | | Seqera bucket event action | S3 → Lambda → Platform API |
 |---|---|---|
@@ -69,4 +68,4 @@ You can also combine them. Let Lambda handle only the "which file arrived" logic
 | **Using event data (file path, batch name) as parameters** | No. Parameters are fixed on the action | Yes. Any logic you want |
 | **Storage support** | S3 only | S3, or anything that can call an HTTP API |
 
-I'm really excited for this feature because I've wanted to do something like this for a while now, and I'm still a AWS Lambda neophyte. But now with Actions, it makes it a lot easier to launch pipelines automatically. 
+I'm excited about this feature. I've wanted to launch pipelines automatically for a while, but I'm still an AWS Lambda novice. Actions make it much easier.
