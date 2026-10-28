@@ -17,11 +17,11 @@ I set up an action to launch my [HiFi WGS trio pipeline](https://github.com/embe
 
 
 
-1. Navigate to **Actions** on [Seqera platform](https://cloud.seqera.io/)
+ Navigate to **Actions** on [Seqera platform](https://cloud.seqera.io/)
 
  ![ Actions menu in Seqera Platform](/assets/img/seqera_actions_menu.png)
 
-2. Click  Add Action and the fill in the information for the name and tag. There are various Triggers you can choose from, described in detail [here](https://docs.seqera.io/platform-cloud/pipeline-actions/overview)
+Click  Add Action and the fill in the information for the name and tag. There are various Triggers you can choose from, described in detail [here](https://docs.seqera.io/platform-cloud/pipeline-actions/overview)
 
 For my purposes I chose bucket event. Make sure the bucket has appropriate IAM permissions, as described [here](https://docs.seqera.io/platform-cloud/pipeline-actions/overview#bucket-events)
 
@@ -33,11 +33,11 @@ Choose your marker file that signals your data is ready. I'm a little confused o
 
 ![trigger.png](/assets/img/trigger.png)
 
-3. Next, you point your action towards your Target. For my case, I pointed it to my [pipeline repo on github](https://github.com/embedbio/nextflow-hifi-wgs)
+ Next, you point your action towards your Target. For my case, I pointed it to my [pipeline repo on github](https://github.com/embedbio/nextflow-hifi-wgs)
 
 ![action-target.png](/assets/img/action-target.png)
 
-4. Finally, you can test your action. I uploaded my samplesheet to the bucket and it triggered my pipeline
+Finally, you can test your action. I uploaded my samplesheet to the bucket and it triggered my pipeline
 
 ![pipeline-launch.png](/assets/img/pipeline-launch.png)
 
